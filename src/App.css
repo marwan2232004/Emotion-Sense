@@ -1,0 +1,88 @@
+@import url("https://fonts.googleapis.com/css2?family=Playwrite+CU:wght@100..400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=SUSE:wght@100..800&display=swap");
+html,
+body {
+  font-family: "Dongle", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.background {
+  width: 100vw;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0);
+  filter: blur(10px);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.main-page {
+  color: aliceblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.name {
+  font-family: "Playwrite CU", cursive;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-size: 3rem;
+  font-style: normal;
+}
+
+.emotion {
+  color: transparent;
+  -webkit-text-stroke: 1px rgb(255, 255, 255); /* Add a border to the text */
+}
+
+.header {
+  font-size: 5.5rem;
+  background-image: linear-gradient(
+    to right,
+    #ff5eba,
+    #ff6a87,
+    #ff8d59,
+    #fbb33d,
+    #cfd54a,
+    #9de679,
+    #69f1af,
+    #36f7e3,
+    #68f0ff,
+    #a6e6ff,
+    #cfdef4,
+    #dcdcdc
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  white-space: nowrap;
+  animation: movingBackground 3s linear infinite;
+  background-size: 200%;
+  margin-bottom: 10px;
+}
+
+@keyframes movingBackground {
+  from {
+    background-position: 0% center;
+  }
+  to {
+    background-position: -200% center;
+  }
+}
+
+.description {
+  line-height: 50px;
+  font-size: 1.3rem;
+  font-family: "Playwrite CU", cursive;
+  font-weight: 400;
+  padding: 20px;
+  margin-top: 10px;
+  padding-bottom: 0;
+  text-align: center;
+  color: #ebd2ff;
+}
+

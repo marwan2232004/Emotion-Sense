@@ -1,0 +1,42 @@
+.input-area {
+  position: relative;
+  margin-top: 90px;
+  margin-bottom: 90px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+textarea {
+  width: 40rem;
+  height: 10rem;
+  background: transparent; /* Makes the background transparent */
+  color: white; /* Text color */
+  border: 2px solid white; /* White border */
+  border-radius: 20px;
+  padding: 20px;
+  font-size: 1em;
+  resize: none; /* Disable resizing */
+  outline: none; /* Removes default outline */
+  font-family: "SUSE", sans-serif;
+  transition: all 0.3s ease;
+}
+
+.word-counter {
+  position: absolute;
+  bottom: 10px; /* Position at the bottom */
+  right: 10px; /* Align to the right */
+  color: white; /* Counter text color */
+  font-size: 0.9em; /* Adjust size if necessary */
+  font-family: "SUSE", sans-serif;
+}
+
+textarea::placeholder {
+  color: rgba(255, 255, 255, 0.897); /* Change this to the desired color */
+  opacity: 1; /* Ensures the color is fully applied */
+}
+textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(157, 135, 255, 0.911);
+  
+  border: 2px solid rgb(212, 180, 255); /* White border */
+}
