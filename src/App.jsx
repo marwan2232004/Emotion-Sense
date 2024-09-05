@@ -41,7 +41,7 @@ function App() {
   const handelClick = async () => {
     console.log(JSON.stringify({ text }));
     try {
-      const response = await fetch("https://emotionsenseapi-production.up.railway.app/predict", {
+      const response = await fetch("http://127.0.0.1:8000/predict", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
