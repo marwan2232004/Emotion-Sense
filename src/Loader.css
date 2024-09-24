@@ -1,0 +1,54 @@
+:root {
+  --purple: rgb(123, 31, 162);
+  --violet: rgb(168, 29, 145);
+  --pink: rgb(244, 143, 177);
+}
+
+.magic-star,
+.magic-star * {
+  cursor: default;
+  user-select: none;
+}
+
+.magic-star {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+}
+.hidden {
+  display: none; /* or use visibility: hidden; depending on your requirements */
+}
+.loader {
+ z-index: -1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.magic-star svg {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  fill: var(--violet);
+}
+
+@keyframes scale {
+  from,
+  to {
+    transform: scale(0);
+  }
+
+  50% {
+    transform: scale(1);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(180deg);
+  }
+}

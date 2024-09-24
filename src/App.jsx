@@ -3,11 +3,12 @@ import "./App.css";
 import "./Blobs.css";
 import Button from "./Button";
 import "./Header.css";
+import "./Loader.css";
 import "./TextArea.css";
-
 function App() {
   const [text, setText] = useState("");
   const blobRef = useRef(null);
+  const loaderRef = useRef(null);
   const maxWords = 260;
 
   const handleChange = (event) => {
@@ -38,41 +39,81 @@ function App() {
     );
   };
 
+  const applyAnimation = (animate = true) => {
+    if (loaderRef.current) {
+      const loadingArea = loaderRef.current;
+      const stars = loadingArea.children;
+
+      loadingArea.classList.toggle("hidden", !animate);
+
+      const areaWidth = loadingArea.offsetWidth;
+      const areaHeight = loadingArea.offsetHeight;
+
+      for (let i = 0; i < stars.length; i++) {
+        stars[i].style.animation = "scale 900ms ease-in-out infinite forwards";
+        stars[i].style.left = `${Math.floor(Math.random() * areaWidth)}px`;
+        stars[i].style.top = `${Math.floor(Math.random() * areaHeight)}px`;
+
+        // Generate a random number between 0 and 1
+        const randomNumber = Math.random();
+        const delayThreshold = 0.5; // Adjust this threshold as needed
+
+        // Apply a delay based on the random number
+        if (randomNumber > delayThreshold) {
+          stars[i].style.animationDelay = `${Math.random() * 2000}ms`; // Random delay up to 1 second
+        } else {
+          stars[i].style.animationDelay = "0ms"; // No delay
+        }
+
+        stars[i].children[0].style.animation =
+          "rotate 1s linear infinite forwards";
+      }
+    }
+  };
+
   const handelClick = async () => {
     console.log(JSON.stringify({ text }));
+    applyAnimation(true);
     try {
-      const response = await fetch("https://emotionsense-dvemggcjagcqdxey.uaenorth-01.azurewebsites.net/predict", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ text }),
-      });
-
+      const response = await fetch(
+        "https://emotionsense-dvemggcjagcqdxey.uaenorth-01.azurewebsites.net/predict",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ text }),
+        }
+      );
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
-
       const data = await response.json();
-
       const sentimentMapping = {
         0: "neutral",
         1: "positive",
         2: "negative",
       };
-
       const sentimentLabel = sentimentMapping[data.prediction];
-
       console.log(sentimentLabel);
-
       if (blobRef.current) {
         blobRef.current.classList.remove("neutral", "positive", "negative");
         blobRef.current.classList.add(`${sentimentLabel}`);
       }
+      applyAnimation(false);
     } catch (error) {
       console.error("Error making prediction:", error);
     }
   };
+
+  const starCount = 10;
+  const stars = Array.from({ length: starCount }).map((_, i) => (
+    <div key={i} className={`magic-star s${i}`}>
+      <svg viewBox="0 0 512 512">
+        <path d="M512 255.1c0 11.34-7.406 20.86-18.44 23.64l-171.3 42.78l-42.78 171.1C276.7 504.6 267.2 512 255.9 512s-20.84-7.406-23.62-18.44l-42.66-171.2L18.47 279.6C7.406 276.8 0 267.3 0 255.1c0-11.34 7.406-20.83 18.44-23.61l171.2-42.78l42.78-171.1C235.2 7.406 244.7 0 256 0s20.84 7.406 23.62 18.44l42.78 171.2l171.2 42.78C504.6 235.2 512 244.6 512 255.1z" />
+      </svg>
+    </div>
+  ));
 
   return (
     <>
@@ -112,6 +153,10 @@ function App() {
           media conversations about COVID-19.{" "}
         </div>
         <div className="input-area gradient-border">
+          <div className="loader hidden" ref={loaderRef}>
+            {stars}
+          </div>
+
           <textarea
             name="text"
             value={text}
